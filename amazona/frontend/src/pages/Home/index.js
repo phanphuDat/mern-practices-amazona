@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import logger from "use-reducer-logger";
+import { Row } from "react-bootstrap";
+import Product from "../../components/Product/Product";
+import Col from 'react-bootstrap/Col'
 
 // Sử dựng state.
 const reducer = (state, action) => {
@@ -39,6 +41,7 @@ const HomeScreen = () => {
     };
     fetchData();
   }, []);
+
   return (
     <div>
       <h3>list products</h3>
@@ -48,22 +51,13 @@ const HomeScreen = () => {
         ) : error ? (
           <div>{error.message}</div>
         ) : (
-          products.map((product) => {
-            return (
-              <div className="product" key={product.id}>
-                <Link to={`/product/${product.slug}}`}>
-                  <img src={product.image} alt={product.name} />
-                </Link>
-                <div className="product-info">
-                  <Link href={`/product/${product.slug}}`}>
-                    <p>{product.name}</p>
-                  </Link>
-                  <p>{product.price}</p>
-                  <button className="bnt-cart">Add to Cart</button>
-                </div>
-              </div>
-            );
-          })
+          <Row>
+            {products.map((product) => (
+              <Col key={product.id} sm={12} md={6} lg={4} className="mb-3">
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
         )}
       </div>
     </div>
