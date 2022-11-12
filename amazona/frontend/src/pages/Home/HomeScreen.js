@@ -5,6 +5,9 @@ import { Row } from "react-bootstrap";
 import Product from "../../components/Product/Product";
 import Col from 'react-bootstrap/Col'
 import { Helmet } from "react-helmet-async";
+import LoadingBox from "../../components/LoadingBox/LoadingBox";
+import MessageBox from "../../components/MessageBox/MessageBox";
+import { getError } from "../../utils";
 
 // Sử dựng state.
 const reducer = (state, action) => {
@@ -37,7 +40,7 @@ const HomeScreen = () => {
         const result = await axios.get("/products");
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (error) {
-        dispatch({ type: "FETCH_FAIL", payload: error.message });
+        dispatch({ type: "FETCH_FAIL", payload: getError(error) });
       }
     };
     fetchData();
@@ -53,9 +56,9 @@ const HomeScreen = () => {
       <h3>list products</h3>
       <div className="products">
         {loading ? (
-          <div>...loading...</div>
+          <LoadingBox/>
         ) : error ? (
-          <div>{error.message}</div>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <Row>
             {products.map((product) => (

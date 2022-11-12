@@ -5,6 +5,9 @@ import { Row, Col, ListGroup, Card, Button, Badge } from "react-bootstrap";
 import StarRating from "../../components/Product/StarRating/StarRating";
 import { SiNike } from "react-icons/si";
 import { Helmet } from "react-helmet-async";
+import LoadingBox from "../../components/LoadingBox/LoadingBox";
+import MessageBox from "../../components/MessageBox/MessageBox";
+import { getError } from "../../utils";
 
 // Sử dựng state.
 const reducer = (state, action) => {
@@ -37,15 +40,15 @@ const ProductScreen = () => {
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
         console.log(product);
       } catch (error) {
-        dispatch({ type: "FETCH_FAIL", payload: error.message });
+        dispatch({ type: "FETCH_FAIL", payload: getError(error) });
       }
     };
     fetchData();
   }, [slug]);
   return loading ? (
-    <div>...Loding...</div>
+    <LoadingBox />
   ) : error ? (
-    <div>{error.message}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
       <Row>
