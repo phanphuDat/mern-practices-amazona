@@ -4,6 +4,7 @@ import logger from "use-reducer-logger";
 import { Row } from "react-bootstrap";
 import Product from "../../components/Product/Product";
 import Col from 'react-bootstrap/Col'
+import { Helmet } from "react-helmet-async";
 
 // Sử dựng state.
 const reducer = (state, action) => {
@@ -44,6 +45,11 @@ const HomeScreen = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>
+          amazona
+        </title>
+      </Helmet>
       <h3>list products</h3>
       <div className="products">
         {loading ? (
@@ -53,7 +59,7 @@ const HomeScreen = () => {
         ) : (
           <Row>
             {products.map((product) => (
-              <Col key={product.id} sm={12} md={6} lg={4} className="mb-3">
+              <Col key={product.id} sm={6} md={4} lg={3} className="mb-3">
                 <Product product={product} />
               </Col>
             ))}

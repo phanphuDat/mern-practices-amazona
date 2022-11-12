@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProductScreen from "./pages/Product";
-import HomeScreen from "./pages/Home";
+import ProductScreen from "./pages/Product/ProductScreen";
+import HomeScreen from "./pages/Home/HomeScreen";
 import { Navbar, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
@@ -21,7 +21,7 @@ const App = () => {
         <main>
           <Container>
             <Routes>
-              <Route path="/product/:slug" element={<ProductScreen />} />
+              <Route path="/:slug" element={<ProductScreen />} />
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
